@@ -1,6 +1,5 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class DayFIve {
@@ -13,16 +12,18 @@ public class DayFIve {
         Scanner sc = new Scanner(new FileInputStream("day-5/aoc-day-5.txt"));
         ArrayList<Range> list = new ArrayList<>();
         while (true) {
-
             String s = sc.nextLine();
             if (s.isEmpty()) break;
             String[] split = s.split("-");
             list.add(new Range(Long.parseLong(split[0]), Long.parseLong(split[1])));
         }
+
+        Collections.sort(list); // This eliminates the overlapping scenario from left.
+
         ArrayList<Range> merged = mergeBoundaries(list);
         long ans = 0;
         for (Range r : merged) {
-            System.out.println(r.toString());
+//            System.out.println(r.toString());
             ans += r.r - r.l + 1;
         }
         System.out.println(ans);
@@ -36,25 +37,14 @@ public class DayFIve {
             for (int j = i+1; j < ranges.size(); j++) {
                 if (isMerged[j]) continue;
                 Range r2 = ranges.get(j);
-                if (r2.l <= r1.r && r2.r >= r1.r) {
+                if (r2.r >= r1.r && r2.l <= r1.r) {
                     // overlap from right side
-                    System.out.println("From right: " + r1 + " " + r2);
-                    r1 = new Range(Math.min(r1.l, r2.l), Math.max(r1.r, r2.r));
-                    ranges.set(i, r1);
-                    System.out.println("Merged: " + r1);
-                    isMerged[j] = true;
-                    i--; // we updated r1, so need to retraversal
-                    break;
-                } else if (r2.r >= r1.l && r2.l <= r1.l) {
-                    // overlap from left side
-                    System.out.println("From left: " + r1 + " " + r2);
-                    r1 = new Range(Math.min(r1.l, r2.l), Math.max(r1.r, r2.r));
-                    ranges.set(i, r1);
-                    System.out.println("Merged: " + r1);
+                    System.out.println("From Right: " + r1 + " " + r2);
+                    ranges.set(i, new Range(r1.l, r2.r));
                     isMerged[j] = true;
                     i--;
                     break;
-                } else if (r2.l >= r1.l && r2.r <= r1.r) {
+                } else if (r2.r <= r1.r) {
                     // r2 is contained by r1
                     isMerged[j] = true;
                 }
@@ -62,7 +52,6 @@ public class DayFIve {
         }
         ArrayList<Range> merged = new ArrayList<>();
         for (int i = 0; i < ranges.size() - 1; i++) {
-//            System.out.println("After merge: " + ranges.get(i));
             if (isMerged[i]) continue;
             merged.add(ranges.get(i));
         }
@@ -93,7 +82,7 @@ public class DayFIve {
         System.out.println(cnt);
     }
 }
-class Range {
+class Range implements Comparable<Range> {
     long l;
     long r;
     public Range(long l, long r) {
@@ -107,5 +96,12 @@ class Range {
                 "l=" + l +
                 ", r=" + r +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Range o) {
+        if (this.l < o.l) return -1;
+        if (this.l == o.l) return 0;
+        return 1;
     }
 }
