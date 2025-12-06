@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/744E2/744E2.iml" filepath="$PROJECT_DIR$/744E2/744E2.iml" />
       <module fileurl="file://$PROJECT_DIR$/AOC.iml" filepath="$PROJECT_DIR$/AOC.iml" />
       <module fileurl="file://$PROJECT_DIR$/day-1/day-1.iml" filepath="$PROJECT_DIR$/day-1/day-1.iml" />
       <module fileurl="file://$PROJECT_DIR$/day-2/day-2.iml" filepath="$PROJECT_DIR$/day-2/day-2.iml" />
       <module fileurl="file://$PROJECT_DIR$/day-3/day-3.iml" filepath="$PROJECT_DIR$/day-3/day-3.iml" />
       <module fileurl="file://$PROJECT_DIR$/day-4/day-4.iml" filepath="$PROJECT_DIR$/day-4/day-4.iml" />
       <module fileurl="file://$PROJECT_DIR$/day-5/day-5.iml" filepath="$PROJECT_DIR$/day-5/day-5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day-6/day-6.iml" filepath="$PROJECT_DIR$/day-6/day-6.iml" />
     </modules>
   </component>
 </project>
